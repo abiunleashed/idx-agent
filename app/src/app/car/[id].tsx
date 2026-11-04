@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ReviewCard } from '@/components/review-card';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { VoteButtons } from '@/components/vote-buttons';
 import { AspectBar, PrimaryButton, Section, StatTile } from '@/components/ui';
 import { MaxContentWidth, Spacing } from '@/constants/theme';
 import { getCar } from '@/data/cars';
@@ -45,6 +46,13 @@ export default function CarScreen() {
           <ThemedText style={styles.heroModel}>{car.model}</ThemedText>
           <ThemedText style={styles.heroMeta}>
             {t(`bodyType_${car.bodyType}`)} · {car.generation}
+          </ThemedText>
+        </View>
+
+        <View style={{ gap: Spacing.two }}>
+          <VoteButtons carId={car.id} size="large" />
+          <ThemedText type="small" themeColor="textSecondary">
+            {t('quickVoteHint')}
           </ThemedText>
         </View>
 
