@@ -8,9 +8,9 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Chip } from '@/components/ui';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-import { CARS } from '@/data/cars';
 import { useTheme } from '@/hooks/use-theme';
 import { useI18n } from '@/i18n';
+import { useCatalog } from '@/store/catalog';
 import { useReviews } from '@/store/reviews';
 import type { BodyType, Car } from '@/types';
 
@@ -22,13 +22,14 @@ export default function FeedScreen() {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const { t } = useI18n();
-  const { reviews } = useReviews();
+  const { reviews, error: reviewsError, reload } = useReviews();
+  const { cars: catalog, loading, error: catalogError, reload: reloadCatalog } = useCatalog();
   const [query, setQuery] = useState('');
   const [bodyType, setBodyType] = useState<BodyType | 'all'>('all');
 
   const columns = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const cars = CARS.filter(
+    const cars = catalog.filter(
       (c) => (bodyType === 'all' || c.bodyType === bodyType) && (!q || `${c.brand} ${c.model}`.toLowerCase().includes(q)),
     );
     // Most-reviewed first: that's where the useful information is.
@@ -45,13 +46,16 @@ export default function FeedScreen() {
       heights[target] += height + 80;
     });
     return cols;
-  }, [query, bodyType, reviews]);
+  }, [query, bodyType, reviews, catalog]);
 
   return (
     <ThemedView style={styles.flex}>
       <ScrollView
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={[styles.content, { paddingTop: insets.top + Spacing.three, paddingBottom: insets.bottom + BottomTabInset + 96 }]}>
+        contentContainerStyle={[
+          styles.content,
+          { paddingTop: insets.top + Spacing.three, paddingBottom: insets.bottom + BottomTabInset + 96 },
+        ]}>
         <View style={styles.header}>
           <ThemedText style={styles.brand}>{t('appName')}</ThemedText>
           <ThemedText type="small" themeColor="textSecondary">
@@ -75,6 +79,18 @@ export default function FeedScreen() {
             <Chip key={b} label={t(`bodyType_${b}`)} selected={bodyType === b} onPress={() => setBodyType(b)} />
           ))}
         </ScrollView>
+
+        {loading && (
+          <ThemedText type="small" themeColor="textSecondary">
+            {t('loading')}
+          </ThemedText>
+        )}
+        {(catalogError || reviewsError) && (
+          <View style={[styles.errorBox, { backgroundColor: theme.backgroundElement }]}>
+            <ThemedText type="small">{t('loadFailed')}</ThemedText>
+            <Chip label={t('retry')} onPress={() => Promise.all([reloadCatalog(), reload()])} />
+          </View>
+        )}
 
         <View style={styles.masonry}>
           {columns.map((col, ci) => (
@@ -109,6 +125,7 @@ const styles = StyleSheet.create({
   search: { borderRadius: 14, paddingHorizontal: Spacing.three, paddingVertical: 12, fontSize: 16 },
   chips: { gap: Spacing.two },
   masonry: { flexDirection: 'row', gap: Spacing.three },
+  errorBox: { borderRadius: 14, padding: Spacing.three, gap: Spacing.two, alignItems: 'flex-start' },
   column: { flex: 1 },
   fab: {
     position: 'absolute',

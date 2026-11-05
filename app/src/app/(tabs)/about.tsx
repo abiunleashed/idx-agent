@@ -1,23 +1,29 @@
+import { router } from 'expo-router';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Section, Segmented } from '@/components/ui';
+import { Chip, PrimaryButton, Section, Segmented } from '@/components/ui';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { useI18n } from '@/i18n';
 import type { Lang } from '@/i18n/strings';
+import { useAuth } from '@/store/auth';
 
 export default function AboutScreen() {
   const insets = useSafeAreaInsets();
   const theme = useTheme();
   const { t, lang, setLang } = useI18n();
+  const auth = useAuth();
 
   return (
     <ThemedView style={styles.flex}>
       <ScrollView
-        contentContainerStyle={[styles.content, { paddingTop: insets.top + Spacing.three, paddingBottom: insets.bottom + BottomTabInset + Spacing.four }]}>
+        contentContainerStyle={[
+          styles.content,
+          { paddingTop: insets.top + Spacing.three, paddingBottom: insets.bottom + BottomTabInset + Spacing.four },
+        ]}>
         <ThemedText style={styles.title}>{t('aboutTitle')}</ThemedText>
         <ThemedText>{t('aboutBody')}</ThemedText>
 
@@ -32,6 +38,21 @@ export default function AboutScreen() {
           ))}
         </Section>
 
+        {auth.enabled && (
+          <Section title={t('account')}>
+            {auth.session ? (
+              <View style={{ gap: Spacing.two, alignItems: 'flex-start' }}>
+                <ThemedText type="small" themeColor="textSecondary">
+                  {t('signedInAs')}: {auth.session.user.email}
+                </ThemedText>
+                <Chip label={t('signOut')} onPress={auth.signOut} />
+              </View>
+            ) : (
+              <PrimaryButton label={t('signIn')} onPress={() => router.push('/sign-in')} />
+            )}
+          </Section>
+        )}
+
         <Section title={t('language')}>
           <Segmented<Lang>
             value={lang}
@@ -43,11 +64,13 @@ export default function AboutScreen() {
           />
         </Section>
 
-        <View style={[styles.note, { backgroundColor: theme.backgroundElement }]}>
-          <ThemedText type="small" themeColor="textSecondary">
-            {t('prototypeNote')}
-          </ThemedText>
-        </View>
+        {!auth.enabled && (
+          <View style={[styles.note, { backgroundColor: theme.backgroundElement }]}>
+            <ThemedText type="small" themeColor="textSecondary">
+              {t('prototypeNote')}
+            </ThemedText>
+          </View>
+        )}
       </ScrollView>
     </ThemedView>
   );

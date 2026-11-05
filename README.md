@@ -24,9 +24,21 @@ Arabayı almayı düşünen kişi bu bilgilerin özetini tek sayfada görür.
 | Hakkında sayfası: ilkeler ve dil seçimi (Endonezce / Türkçe) | `app/src/app/(tabs)/about.tsx` |
 
 **Bilinen sınırlar:**
-- Henüz sunucu yok. Yazılan yorumlar uygulama kapanınca kayboluyor.
-- "Contoh / Örnek" etiketli yorumlar uydurma örnek verilerdir. Yayından önce silinmeleri gerekiyor.
+- Giriş şimdilik e-posta ve şifreyle yapılıyor. Google, Apple ve telefon numarasıyla giriş sonra eklenecek.
+- "Contoh / Örnek" etiketli yorumlar uydurma örnek verilerdir ve sadece sunucusuz demo modunda görünür.
 - Sıfır fiyat aralıkları yaklaşık değerler. Yayından önce tarihli ve doğrulanmış bir kaynakla değiştirilmeleri gerekiyor.
+
+## Sunucu (Supabase)
+
+Uygulama `app/.env` dosyasındaki Supabase projesine bağlanır. Bu dosyada sadece **publishable** anahtar bulunur; bu anahtar uygulamanın içine konmak için tasarlanmıştır. Veriler, `supabase/migrations/` içindeki güvenlik kurallarıyla korunur.
+**Secret / service_role anahtarı bu dosyaya ya da repoya asla konmamalı.**
+
+Yeni bir Supabase projesini kurmak için:
+1. **SQL Editor**'de sırayla `supabase/migrations/0001_init.sql` ve `supabase/seed.sql` dosyalarını çalıştır.
+2. İlk moderatörü atamak için kendi hesabınla kayıt olduktan sonra SQL Editor'de şunu çalıştır:
+   `update profiles set is_moderator = true where id = (select id from auth.users where email = 'SENIN@EPOSTAN');`
+
+Sunucu olmadan, örnek verilerle çalıştırmak için: `EXPO_PUBLIC_SUPABASE_DISABLED=1 npx expo start`
 
 ## Kendi telefonunda çalıştırma
 

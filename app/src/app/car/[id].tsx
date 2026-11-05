@@ -9,16 +9,17 @@ import { ThemedView } from '@/components/themed-view';
 import { VoteButtons } from '@/components/vote-buttons';
 import { AspectBar, PrimaryButton, Section, StatTile } from '@/components/ui';
 import { MaxContentWidth, Spacing } from '@/constants/theme';
-import { getCar } from '@/data/cars';
 import { useTheme } from '@/hooks/use-theme';
 import { useI18n } from '@/i18n';
 import { formatIDR, formatIDRRange, percent } from '@/lib/format';
 import { summarize } from '@/lib/stats';
+import { useCatalog } from '@/store/catalog';
 import { useCarReviews } from '@/store/reviews';
 import { ASPECTS } from '@/types';
 
 export default function CarScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { getCar, loading } = useCatalog();
   const car = getCar(id);
   const reviews = useCarReviews(id);
   const theme = useTheme();
@@ -28,7 +29,7 @@ export default function CarScreen() {
   if (!car) {
     return (
       <ThemedView style={[styles.flex, styles.center]}>
-        <ThemedText>404</ThemedText>
+        <ThemedText>{loading ? t('loading') : '404'}</ThemedText>
       </ThemedView>
     );
   }
@@ -60,8 +61,16 @@ export default function CarScreen() {
           <>
             <View style={styles.tiles}>
               <StatTile value={summary.avgOverall.toFixed(1)} label={t('overallScore')} />
-              <StatTile value={percent(summary.worthYes)} label={t('worthTheMoney')} color={summary.worthYes >= 0.5 ? 'positive' : 'negative'} />
-              <StatTile value={percent(summary.buyAgain)} label={t('wouldBuyAgain')} color={summary.buyAgain >= 0.5 ? 'positive' : 'negative'} />
+              <StatTile
+                value={percent(summary.worthYes)}
+                label={t('worthTheMoney')}
+                color={summary.worthYes >= 0.5 ? 'positive' : 'negative'}
+              />
+              <StatTile
+                value={percent(summary.buyAgain)}
+                label={t('wouldBuyAgain')}
+                color={summary.buyAgain >= 0.5 ? 'positive' : 'negative'}
+              />
             </View>
 
             <Section title={t('ownersPaid')}>
@@ -134,7 +143,17 @@ function PriceRow({ label, value, bold }: { label: string; value: string; bold?:
   );
 }
 
-function PhraseBlock({ title, items, color, sign }: { title: string; items: { text: string; count: number }[]; color: string; sign: string }) {
+function PhraseBlock({
+  title,
+  items,
+  color,
+  sign,
+}: {
+  title: string;
+  items: { text: string; count: number }[];
+  color: string;
+  sign: string;
+}) {
   if (items.length === 0) return null;
   return (
     <Section title={title} style={{ gap: Spacing.two }}>

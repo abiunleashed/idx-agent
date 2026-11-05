@@ -9,10 +9,11 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Chip, PrimaryButton, Section, Segmented, StarInput } from '@/components/ui';
 import { MaxContentWidth, Spacing } from '@/constants/theme';
-import { CARS, getCar } from '@/data/cars';
 import { useTheme } from '@/hooks/use-theme';
 import { useI18n } from '@/i18n';
 import type { StringKey } from '@/i18n/strings';
+import { useAuth } from '@/store/auth';
+import { useCatalog } from '@/store/catalog';
 import { useReviews } from '@/store/reviews';
 import { ASPECTS, type Aspect, type ReviewPhoto, type WorthIt } from '@/types';
 
@@ -31,8 +32,12 @@ export default function NewReviewScreen() {
   const insets = useSafeAreaInsets();
   const { t } = useI18n();
   const { addReview } = useReviews();
+  const { cars, getCar } = useCatalog();
+  const auth = useAuth();
+  const [sending, setSending] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const [carId, setCarId] = useState<string | undefined>(getCar(params.carId)?.id);
+  const [carId, setCarId] = useState<string | undefined>(params.carId);
   const [modelYear, setModelYear] = useState('');
   const [variant, setVariant] = useState('');
   const [condition, setCondition] = useState<'new' | 'used'>('new');
@@ -51,7 +56,7 @@ export default function NewReviewScreen() {
   const year = parseInt(modelYear, 10);
   const price = parseFloat(priceMillions.replace(',', '.'));
   const missing: StringKey[] = [];
-  if (!carId) missing.push('formCar');
+  if (!getCar(carId)) missing.push('formCar');
   if (!(year >= 1980 && year <= CURRENT_YEAR + 1)) missing.push('formModelYear');
   if (!(price > 0)) missing.push('formPricePaid');
   if (!overall) missing.push('formOverall');
@@ -61,35 +66,63 @@ export default function NewReviewScreen() {
   if (body.trim().length < MIN_BODY) missing.push('formBody');
 
   const pickPhoto = async () => {
-    const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ['images'], quality: 0.7, allowsMultipleSelection: true, selectionLimit: 6 });
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      quality: 0.7,
+      allowsMultipleSelection: true,
+      selectionLimit: 6,
+    });
     if (result.canceled) return;
     setPhotos((prev) => [...prev, ...result.assets.map((a) => ({ uri: a.uri, caption: '', sentiment: 'negative' as const }))].slice(0, 6));
   };
 
-  const updatePhoto = (i: number, patch: Partial<ReviewPhoto>) => setPhotos((prev) => prev.map((p, j) => (j === i ? { ...p, ...patch } : p)));
+  const updatePhoto = (i: number, patch: Partial<ReviewPhoto>) =>
+    setPhotos((prev) => prev.map((p, j) => (j === i ? { ...p, ...patch } : p)));
 
-  const submit = () => {
-    if (missing.length > 0 || !carId || !worthIt) return;
-    addReview({
-      carId,
-      authorName: t('you'),
-      modelYear: year,
-      variant: variant.trim() || undefined,
-      pricePaidIDR: Math.round(price * 1_000_000),
-      condition,
-      city: city.trim() || '—',
-      monthsOwned: parseInt(monthsOwned, 10) || 0,
-      overall,
-      aspects,
-      worthIt,
-      wouldBuyAgain: buyAgain === 'yes',
-      pros: lines(pros),
-      cons: lines(cons),
-      body: body.trim(),
-      photos: photos.map((p) => ({ ...p, caption: p.caption.trim() })),
-    });
+  const submit = async () => {
+    if (missing.length > 0 || !carId || !worthIt || sending) return;
+    setSending(true);
+    setSubmitError(null);
+    const result = await addReview(
+      {
+        carId,
+        modelYear: year,
+        variant: variant.trim() || undefined,
+        pricePaidIDR: Math.round(price * 1_000_000),
+        condition,
+        city: city.trim() || '—',
+        monthsOwned: parseInt(monthsOwned, 10) || 0,
+        overall,
+        aspects,
+        worthIt,
+        wouldBuyAgain: buyAgain === 'yes',
+        pros: lines(pros),
+        cons: lines(cons),
+        body: body.trim(),
+        photos: photos.map((p) => ({ ...p, caption: p.caption.trim() })),
+      },
+      t('you'),
+    );
+    setSending(false);
+    if (!result.ok) {
+      setSubmitError(
+        t(result.error === 'alreadyReviewed' ? 'alreadyReviewed' : 'saveFailed') + (result.detail ? `\n(${result.detail})` : ''),
+      );
+      return;
+    }
     router.dismissTo({ pathname: '/car/[id]', params: { id: carId } });
   };
+
+  // An account is required once a server is connected: one account, one review per car.
+  if (auth.enabled && !auth.session) {
+    return (
+      <ThemedView style={[styles.flex, styles.gate]}>
+        <Stack.Screen options={{ title: t('formTitle') }} />
+        <ThemedText style={{ textAlign: 'center' }}>{t('signInToReview')}</ThemedText>
+        <PrimaryButton label={t('signIn')} onPress={() => router.push('/sign-in')} disabled={auth.loading} />
+      </ThemedView>
+    );
+  }
 
   const selectedCar = getCar(carId);
 
@@ -97,7 +130,9 @@ export default function NewReviewScreen() {
     <ThemedView style={styles.flex}>
       <Stack.Screen options={{ title: t('formTitle') }} />
       <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-        <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + Spacing.six }]}>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + Spacing.six }]}>
           <Section title={t('formCar')}>
             {selectedCar && params.carId ? (
               <ThemedText type="smallBold">
@@ -105,7 +140,7 @@ export default function NewReviewScreen() {
               </ThemedText>
             ) : (
               <View style={styles.wrap}>
-                {CARS.map((c) => (
+                {cars.map((c) => (
                   <Chip key={c.id} label={`${c.brand} ${c.model}`} selected={c.id === carId} onPress={() => setCarId(c.id)} />
                 ))}
               </View>
@@ -113,7 +148,15 @@ export default function NewReviewScreen() {
           </Section>
 
           <View style={styles.twoCols}>
-            <Field label={t('formModelYear')} value={modelYear} onChangeText={setModelYear} keyboardType="number-pad" placeholder={`${CURRENT_YEAR - 1}`} maxLength={4} half />
+            <Field
+              label={t('formModelYear')}
+              value={modelYear}
+              onChangeText={setModelYear}
+              keyboardType="number-pad"
+              placeholder={`${CURRENT_YEAR - 1}`}
+              maxLength={4}
+              half
+            />
             <Field label={t('formVariant')} value={variant} onChangeText={setVariant} placeholder="2.0 V HV" half />
           </View>
 
@@ -128,10 +171,23 @@ export default function NewReviewScreen() {
             />
           </Section>
 
-          <Field label={t('formPricePaid')} value={priceMillions} onChangeText={setPriceMillions} keyboardType="decimal-pad" placeholder="450" />
+          <Field
+            label={t('formPricePaid')}
+            value={priceMillions}
+            onChangeText={setPriceMillions}
+            keyboardType="decimal-pad"
+            placeholder="450"
+          />
           <View style={styles.twoCols}>
             <Field label={t('formCity')} value={city} onChangeText={setCity} placeholder="Jakarta" half />
-            <Field label={t('formMonthsOwned')} value={monthsOwned} onChangeText={setMonthsOwned} keyboardType="number-pad" placeholder="12" half />
+            <Field
+              label={t('formMonthsOwned')}
+              value={monthsOwned}
+              onChangeText={setMonthsOwned}
+              keyboardType="number-pad"
+              placeholder="12"
+              half
+            />
           </View>
 
           <Section title={t('formOverall')} style={styles.tight}>
@@ -174,7 +230,14 @@ export default function NewReviewScreen() {
 
           <Field label={t('formPros')} value={pros} onChangeText={setPros} multiline />
           <Field label={t('formCons')} value={cons} onChangeText={setCons} multiline />
-          <Field label={t('formBody')} hint={`${t('formBodyHint')} (${body.trim().length}/${MIN_BODY})`} value={body} onChangeText={setBody} multiline style={{ minHeight: 120 }} />
+          <Field
+            label={t('formBody')}
+            hint={`${t('formBodyHint')} (${body.trim().length}/${MIN_BODY})`}
+            value={body}
+            onChangeText={setBody}
+            multiline
+            style={{ minHeight: 120 }}
+          />
 
           <Section title={t('formPhotos')} style={styles.tight}>
             <ThemedText type="small" themeColor="textSecondary">
@@ -215,7 +278,12 @@ export default function NewReviewScreen() {
               {t('missingFields')}: {missing.map((k) => t(k)).join(' · ')}
             </ThemedText>
           )}
-          <PrimaryButton label={t('submit')} onPress={submit} disabled={missing.length > 0} />
+          {submitError && (
+            <ThemedText type="small" style={{ color: theme.negative }}>
+              {submitError}
+            </ThemedText>
+          )}
+          <PrimaryButton label={sending ? t('sending') : t('submit')} onPress={submit} disabled={missing.length > 0 || sending} />
         </ScrollView>
       </KeyboardAvoidingView>
     </ThemedView>
@@ -246,6 +314,7 @@ const styles = StyleSheet.create({
   flex: { flex: 1 },
   content: { padding: Spacing.three, gap: Spacing.four, width: '100%', maxWidth: MaxContentWidth, alignSelf: 'center' },
   tight: { gap: Spacing.two },
+  gate: { padding: Spacing.four, gap: Spacing.four, justifyContent: 'center' },
   wrap: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.two },
   twoCols: { flexDirection: 'row', gap: Spacing.three },
   aspectRow: { flexDirection: 'row', alignItems: 'center', gap: Spacing.two },
