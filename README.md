@@ -38,6 +38,8 @@ Yeni bir Supabase projesini kurmak için:
 2. İlk moderatörü atamak için kendi hesabınla kayıt olduktan sonra SQL Editor'de şunu çalıştır:
    `update profiles set is_moderator = true where id = (select id from auth.users where email = 'SENIN@EPOSTAN');`
 
+**Şifre sıfırlama** kodda hazır ama kapalı. Açmak için: (1) Supabase'e kendi SMTP e-posta servisini bağla, (2) Authentication > Emails > Reset password şablonuna `{{ .Token }}` ekle, (3) `app/.env` içine `EXPO_PUBLIC_PASSWORD_RESET=1` yaz.
+
 Sunucu olmadan, örnek verilerle çalıştırmak için: `EXPO_PUBLIC_SUPABASE_DISABLED=1 npx expo start`
 
 ## Kendi telefonunda çalıştırma

@@ -12,6 +12,12 @@ import type { StringKey } from '@/i18n/strings';
 import { useAuth } from '@/store/auth';
 
 const MIN_PASSWORD = 8;
+/**
+ * The reset email must contain the code ({{ .Token }}). Supabase only allows editing email
+ * templates once a custom SMTP server is connected, so this stays off until then.
+ * Turn on with EXPO_PUBLIC_PASSWORD_RESET=1 in .env after updating the "Reset password" template.
+ */
+const PASSWORD_RESET_ENABLED = process.env.EXPO_PUBLIC_PASSWORD_RESET === '1';
 const isEmail = (s: string) => /\S+@\S+\.\S+/.test(s);
 
 /**
@@ -160,7 +166,9 @@ export default function SignInScreen() {
 
           <PrimaryButton label={busy ? t('sending') : buttonLabel} onPress={submit} disabled={!valid || busy} />
 
-          {mode === 'signIn' && <LinkButton label={t('forgotPassword')} onPress={() => switchTo('resetRequest')} />}
+          {mode === 'signIn' && PASSWORD_RESET_ENABLED && (
+            <LinkButton label={t('forgotPassword')} onPress={() => switchTo('resetRequest')} />
+          )}
           {mode === 'signIn' && <LinkButton label={t('noAccount')} onPress={() => switchTo('signUp')} />}
           {mode === 'signUp' && <LinkButton label={t('haveAccount')} onPress={() => switchTo('signIn')} />}
           {(mode === 'resetRequest' || mode === 'resetConfirm') && (
