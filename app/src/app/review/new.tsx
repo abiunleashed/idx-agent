@@ -1,7 +1,7 @@
 import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker';
 import { router, Stack, useLocalSearchParams } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, TextInput, View, type TextInputProps } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -27,11 +27,11 @@ const lines = (s: string) =>
     .filter(Boolean);
 
 export default function NewReviewScreen() {
-  const params = useLocalSearchParams<{ carId?: string }>();
+  const params = useLocalSearchParams<{ carId?: string; reviewId?: string }>();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const { t } = useI18n();
-  const { addReview } = useReviews();
+  const { addReview, updateReview, deleteReview, reviews, myUserId } = useReviews();
   const { cars, getCar } = useCatalog();
   const auth = useAuth();
   const [sending, setSending] = useState(false);
@@ -52,6 +52,33 @@ export default function NewReviewScreen() {
   const [cons, setCons] = useState('');
   const [body, setBody] = useState('');
   const [photos, setPhotos] = useState<ReviewPhoto[]>([]);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+
+  // Edit mode: opened from "edit my review", or the user picked a car they already reviewed.
+  const editing =
+    reviews.find((r) => r.id === params.reviewId && r.userId === myUserId) ??
+    (myUserId ? reviews.find((r) => r.carId === carId && r.userId === myUserId) : undefined);
+
+  useEffect(() => {
+    if (!editing) return;
+    setCarId(editing.carId);
+    setModelYear(String(editing.modelYear));
+    setVariant(editing.variant ?? '');
+    setCondition(editing.condition);
+    setPriceMillions(String(editing.pricePaidIDR / 1_000_000).replace('.', ','));
+    setCity(editing.city === '—' ? '' : editing.city);
+    setMonthsOwned(editing.monthsOwned ? String(editing.monthsOwned) : '');
+    setOverall(editing.overall);
+    setAspects(editing.aspects);
+    setWorthIt(editing.worthIt);
+    setBuyAgain(editing.wouldBuyAgain ? 'yes' : 'no');
+    setPros(editing.pros.join('\n'));
+    setCons(editing.cons.join('\n'));
+    setBody(editing.body);
+    setPhotos(editing.photos);
+    // Only when a different review is loaded, so the user's edits aren't overwritten on refresh.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editing?.id]);
 
   const year = parseInt(modelYear, 10);
   const price = parseFloat(priceMillions.replace(',', '.'));
@@ -83,26 +110,24 @@ export default function NewReviewScreen() {
     if (missing.length > 0 || !carId || !worthIt || sending) return;
     setSending(true);
     setSubmitError(null);
-    const result = await addReview(
-      {
-        carId,
-        modelYear: year,
-        variant: variant.trim() || undefined,
-        pricePaidIDR: Math.round(price * 1_000_000),
-        condition,
-        city: city.trim() || '—',
-        monthsOwned: parseInt(monthsOwned, 10) || 0,
-        overall,
-        aspects,
-        worthIt,
-        wouldBuyAgain: buyAgain === 'yes',
-        pros: lines(pros),
-        cons: lines(cons),
-        body: body.trim(),
-        photos: photos.map((p) => ({ ...p, caption: p.caption.trim() })),
-      },
-      t('you'),
-    );
+    const input = {
+      carId,
+      modelYear: year,
+      variant: variant.trim() || undefined,
+      pricePaidIDR: Math.round(price * 1_000_000),
+      condition,
+      city: city.trim() || '—',
+      monthsOwned: parseInt(monthsOwned, 10) || 0,
+      overall,
+      aspects,
+      worthIt,
+      wouldBuyAgain: buyAgain === 'yes',
+      pros: lines(pros),
+      cons: lines(cons),
+      body: body.trim(),
+      photos: photos.map((p) => ({ ...p, caption: p.caption.trim() })),
+    };
+    const result = editing ? await updateReview(editing.id, input) : await addReview(input, t('you'));
     setSending(false);
     if (!result.ok) {
       setSubmitError(
@@ -111,6 +136,18 @@ export default function NewReviewScreen() {
       return;
     }
     router.dismissTo({ pathname: '/car/[id]', params: { id: carId } });
+  };
+
+  const remove = async () => {
+    if (!editing || sending) return;
+    setSending(true);
+    const result = await deleteReview(editing.id);
+    setSending(false);
+    if (!result.ok) {
+      setSubmitError(t('saveFailed') + (result.detail ? `\n(${result.detail})` : ''));
+      return;
+    }
+    router.dismissTo({ pathname: '/car/[id]', params: { id: editing.carId } });
   };
 
   // An account is required once a server is connected: one account, one review per car.
@@ -128,13 +165,18 @@ export default function NewReviewScreen() {
 
   return (
     <ThemedView style={styles.flex}>
-      <Stack.Screen options={{ title: t('formTitle') }} />
+      <Stack.Screen options={{ title: editing ? t('editReviewTitle') : t('formTitle') }} />
       <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={[styles.content, { paddingBottom: insets.bottom + Spacing.six }]}>
+          {editing && !params.reviewId && (
+            <View style={[styles.notice, { backgroundColor: theme.backgroundElement }]}>
+              <ThemedText type="small">{t('editNotice')}</ThemedText>
+            </View>
+          )}
           <Section title={t('formCar')}>
-            {selectedCar && params.carId ? (
+            {selectedCar && (params.carId || editing) ? (
               <ThemedText type="smallBold">
                 {selectedCar.brand} {selectedCar.model}
               </ThemedText>
@@ -283,7 +325,28 @@ export default function NewReviewScreen() {
               {submitError}
             </ThemedText>
           )}
-          <PrimaryButton label={sending ? t('sending') : t('submit')} onPress={submit} disabled={missing.length > 0 || sending} />
+          <PrimaryButton
+            label={sending ? t('sending') : editing ? t('saveChanges') : t('submit')}
+            onPress={submit}
+            disabled={missing.length > 0 || sending}
+          />
+
+          {editing &&
+            (confirmDelete ? (
+              <View style={[styles.notice, { borderColor: theme.negative, borderWidth: 1 }]}>
+                <ThemedText type="small">{t('deleteConfirm')}</ThemedText>
+                <View style={styles.wrap}>
+                  <Chip label={t('deleteYes')} tone="negative" selected onPress={remove} />
+                  <Chip label={t('cancel')} onPress={() => setConfirmDelete(false)} />
+                </View>
+              </View>
+            ) : (
+              <Pressable onPress={() => setConfirmDelete(true)} style={styles.deleteLink} accessibilityRole="button">
+                <ThemedText type="small" style={{ color: theme.negative }}>
+                  {t('deleteReview')}
+                </ThemedText>
+              </Pressable>
+            ))}
         </ScrollView>
       </KeyboardAvoidingView>
     </ThemedView>
@@ -314,6 +377,8 @@ const styles = StyleSheet.create({
   flex: { flex: 1 },
   content: { padding: Spacing.three, gap: Spacing.four, width: '100%', maxWidth: MaxContentWidth, alignSelf: 'center' },
   tight: { gap: Spacing.two },
+  notice: { borderRadius: 14, padding: Spacing.three, gap: Spacing.two },
+  deleteLink: { alignSelf: 'center', paddingVertical: Spacing.two },
   gate: { padding: Spacing.four, gap: Spacing.four, justifyContent: 'center' },
   wrap: { flexDirection: 'row', flexWrap: 'wrap', gap: Spacing.two },
   twoCols: { flexDirection: 'row', gap: Spacing.three },

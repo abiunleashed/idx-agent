@@ -33,11 +33,16 @@ export type ReviewPhoto = {
   caption: string;
   /** Did the owner attach this photo to show something good or something bad? */
   sentiment: 'positive' | 'negative';
+  /** Set for photos already saved on the server (needed to edit or delete them). */
+  id?: string;
+  storagePath?: string;
 };
 
 export type Review = {
   id: string;
   carId: string;
+  /** Account that wrote it; used to show edit/delete only to the author. */
+  userId?: string;
   authorName: string;
   modelYear: number;
   variant?: string;

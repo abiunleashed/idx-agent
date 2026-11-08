@@ -13,6 +13,10 @@ type AuthStore = {
   /** Returns an error message, or null. `needsConfirmation` is true when the user must click the e-mail link first. */
   signUp: (email: string, password: string, name: string) => Promise<{ error: string | null; needsConfirmation: boolean }>;
   signOut: () => Promise<void>;
+  /** Sends a recovery code (6–8 digits) by email. Returns an error message, or null. */
+  sendResetCode: (email: string) => Promise<string | null>;
+  /** Checks the code (which signs the user in) and sets the new password. */
+  resetPassword: (email: string, code: string, newPassword: string) => Promise<string | null>;
 };
 
 const AuthContext = createContext<AuthStore | null>(null);
@@ -52,6 +56,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     },
     signOut: async () => {
       await supabase?.auth.signOut();
+    },
+    sendResetCode: async (email) => {
+      if (!supabase) return null;
+      const { error } = await supabase.auth.resetPasswordForEmail(email.trim());
+      return error?.message ?? null;
+    },
+    resetPassword: async (email, code, newPassword) => {
+      if (!supabase) return null;
+      const { error } = await supabase.auth.verifyOtp({ email: email.trim(), token: code.trim(), type: 'recovery' });
+      if (error) return error.message;
+      const { error: updateError } = await supabase.auth.updateUser({ password: newPassword });
+      return updateError?.message ?? null;
     },
   };
 
