@@ -26,6 +26,9 @@ export default function SignInScreen() {
 
   const valid = /\S+@\S+\.\S+/.test(email) && password.length >= MIN_PASSWORD && (mode === 'signIn' || name.trim().length >= 2);
 
+  // Return to where the user came from; if the page was opened directly, go to the feed.
+  const leave = () => (router.canGoBack() ? router.back() : router.replace('/'));
+
   const submit = async () => {
     setBusy(true);
     setError(null);
@@ -33,14 +36,14 @@ export default function SignInScreen() {
     if (mode === 'signIn') {
       const err = await signIn(email, password);
       if (err) setError(err);
-      else router.back();
+      else leave();
     } else {
       const { error: err, needsConfirmation } = await signUp(email, password, name);
       if (err) setError(err);
       else if (needsConfirmation) {
         setInfo(t('checkEmail'));
         setMode('signIn');
-      } else router.back();
+      } else leave();
     }
     setBusy(false);
   };
