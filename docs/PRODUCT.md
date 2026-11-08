@@ -25,17 +25,24 @@ Endonezya'da araba almak isteyen birine, o arabanın gerçek sahiplerinin **öde
 
 ## Yol haritası
 
-**Aşama 0: prototip (✅ bu commit).** Ekranlar, veri modeli, örnek veri. Sunucu yok.
+**Aşama 0: prototip** ✅
 
-**Aşama 1: gerçek kullanıcılarla ilk sürüm**
-- Sunucu: Supabase (veritabanı, giriş, fotoğraf depolama). Ücretsiz katmanla başlanabilir.
-- Giriş: Google, Apple ve WhatsApp/telefon numarası (Endonezya'da en yaygını).
-- Yorum düzenleme ve silme, kullanıcı profili ("yorumlarım").
-- Fotoğraf sıkıştırma ve yükleme.
-- Moderasyon paneli (basit).
-- Yorum bildirme ("bu yorum sahte veya uygunsuz").
-- Örnek verilerin silinmesi ve gerçek fiyat kaynağının eklenmesi.
-- Ayrı model kayıtları: varyant (G/V/Q, HV), yıl, vites tipi.
+**Aşama 1: gerçek kullanıcılarla ilk sürüm (kapalı beta)**
+- [x] Sunucu: Supabase (veritabanı, güvenlik kuralları, fotoğraf depolama)
+- [x] E-posta + şifre ile kayıt/giriş
+- [x] Yorum yazma, düzenleme, silme (fotoğraflar dahil); hesap başına araba başına tek yorum
+- [x] Beğen/beğenme oyları (hesap başına tek oy)
+- [ ] **Gerçek iPhone'da test** (Expo Go)
+- [ ] Kendi e-posta servisi (SMTP) + alan adı → sonra "şifremi unuttum"u aç (kodu hazır, kapalı)
+- [ ] E-posta onayını yeniden aç (şu an beta için kapalı)
+- [ ] Yorum bildirme butonu + basit moderasyon ekranı (veritabanı tarafı hazır)
+- [ ] Hesap silme özelliği; silinen hesabın fotoğraf dosyalarının da otomatik silinmesi
+- [ ] Dil seçiminin kalıcı olması
+- [ ] Fotoğraf sıkıştırma (yükleme süresi ve depolama için)
+- [ ] Gerçek, tarihli fiyat kaynağı
+- [ ] Google / Apple / telefon numarası ile giriş
+- [ ] Kullanım şartları ve gizlilik politikası (mağaza için zorunlu)
+- [ ] Ayrı model kayıtları: varyant (G/V/Q, HV), yıl, vites tipi
 
 **Aşama 2: güven ve keşif**
 - Doğrulanmış alıcı rozeti.
