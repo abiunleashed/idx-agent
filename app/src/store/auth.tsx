@@ -9,6 +9,8 @@ type AuthStore = {
   session: Session | null;
   userId: string | null;
   loading: boolean;
+  /** Set by an admin in the database (profiles.is_moderator). */
+  isModerator: boolean;
   signIn: (email: string, password: string) => Promise<string | null>;
   /** Returns an error message, or null. `needsConfirmation` is true when the user must click the e-mail link first. */
   signUp: (email: string, password: string, name: string) => Promise<{ error: string | null; needsConfirmation: boolean }>;
@@ -24,6 +26,21 @@ const AuthContext = createContext<AuthStore | null>(null);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(!!supabase);
+  const [isModerator, setIsModerator] = useState(false);
+  const userId = session?.user.id ?? null;
+
+  useEffect(() => {
+    if (!supabase || !userId) {
+      setIsModerator(false);
+      return;
+    }
+    supabase
+      .from('profiles')
+      .select('is_moderator')
+      .eq('id', userId)
+      .single()
+      .then(({ data }) => setIsModerator(!!data?.is_moderator));
+  }, [userId]);
 
   useEffect(() => {
     if (!supabase) return;
@@ -38,8 +55,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const store: AuthStore = {
     enabled: !!supabase,
     session,
-    userId: session?.user.id ?? null,
+    userId,
     loading,
+    isModerator,
     signIn: async (email, password) => {
       if (!supabase) return null;
       const { error } = await supabase.auth.signInWithPassword({ email: email.trim(), password });

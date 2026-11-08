@@ -26,6 +26,7 @@ export default function RootLayout() {
                   <Stack.Screen name="car/[id]" options={{ title: '', headerBackTitle: '' }} />
                   <Stack.Screen name="review/new" options={{ presentation: 'modal', title: '' }} />
                   <Stack.Screen name="sign-in" options={{ presentation: 'modal', title: '' }} />
+                  <Stack.Screen name="moderation" options={{ title: '' }} />
                 </Stack>
               </VotesProvider>
             </ReviewsProvider>

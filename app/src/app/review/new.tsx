@@ -11,6 +11,7 @@ import { Chip, PrimaryButton, Section, Segmented, StarInput } from '@/components
 import { MaxContentWidth, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { useI18n } from '@/i18n';
+import { compressPhoto } from '@/lib/images';
 import type { StringKey } from '@/i18n/strings';
 import { useAuth } from '@/store/auth';
 import { useCatalog } from '@/store/catalog';
@@ -53,6 +54,7 @@ export default function NewReviewScreen() {
   const [body, setBody] = useState('');
   const [photos, setPhotos] = useState<ReviewPhoto[]>([]);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [compressing, setCompressing] = useState(false);
 
   // Edit mode: opened from "edit my review", or the user picked a car they already reviewed.
   const editing =
@@ -100,7 +102,10 @@ export default function NewReviewScreen() {
       selectionLimit: 6,
     });
     if (result.canceled) return;
-    setPhotos((prev) => [...prev, ...result.assets.map((a) => ({ uri: a.uri, caption: '', sentiment: 'negative' as const }))].slice(0, 6));
+    setCompressing(true);
+    const uris = await Promise.all(result.assets.map((a) => compressPhoto(a.uri, a.width, a.height)));
+    setCompressing(false);
+    setPhotos((prev) => [...prev, ...uris.map((uri) => ({ uri, caption: '', sentiment: 'negative' as const }))].slice(0, 6));
   };
 
   const updatePhoto = (i: number, patch: Partial<ReviewPhoto>) =>
@@ -312,7 +317,9 @@ export default function NewReviewScreen() {
                 </View>
               </View>
             ))}
-            {photos.length < 6 && <Chip label={t('formAddPhoto')} onPress={pickPhoto} />}
+            {photos.length < 6 && (
+              <Chip label={compressing ? t('loading') : t('formAddPhoto')} onPress={compressing ? undefined : pickPhoto} />
+            )}
           </Section>
 
           {missing.length > 0 && (
@@ -328,7 +335,7 @@ export default function NewReviewScreen() {
           <PrimaryButton
             label={sending ? t('sending') : editing ? t('saveChanges') : t('submit')}
             onPress={submit}
-            disabled={missing.length > 0 || sending}
+            disabled={missing.length > 0 || sending || compressing}
           />
 
           {editing &&

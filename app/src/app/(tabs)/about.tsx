@@ -46,6 +46,9 @@ export default function AboutScreen() {
                   {t('signedInAs')}: {auth.session.user.email}
                 </ThemedText>
                 <Chip label={t('signOut')} onPress={auth.signOut} />
+                {auth.isModerator && (
+                  <PrimaryButton label={`${t('moderation')} · ${t('openModeration')}`} onPress={() => router.push('/moderation')} />
+                )}
               </View>
             ) : (
               <PrimaryButton label={t('signIn')} onPress={() => router.push('/sign-in')} />

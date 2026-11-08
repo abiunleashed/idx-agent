@@ -35,10 +35,10 @@ Endonezya'da araba almak isteyen birine, o arabanın gerçek sahiplerinin **öde
 - [ ] **Gerçek iPhone'da test** (Expo Go)
 - [ ] Kendi e-posta servisi (SMTP) + alan adı → sonra "şifremi unuttum"u aç (kodu hazır, kapalı)
 - [ ] E-posta onayını yeniden aç (şu an beta için kapalı)
-- [ ] Yorum bildirme butonu + basit moderasyon ekranı (veritabanı tarafı hazır)
+- [x] Yorum bildirme butonu + moderasyon ekranı (moderatör: bildirilen yorumu gizle / bildirimi yok say)
 - [ ] Hesap silme özelliği; silinen hesabın fotoğraf dosyalarının da otomatik silinmesi
-- [ ] Dil seçiminin kalıcı olması
-- [ ] Fotoğraf sıkıştırma (yükleme süresi ve depolama için)
+- [x] Dil seçiminin kalıcı olması
+- [x] Fotoğraf sıkıştırma (en uzun kenar 1600 px, JPEG)
 - [ ] Gerçek, tarihli fiyat kaynağı
 - [ ] Google / Apple / telefon numarası ile giriş
 - [ ] Kullanım şartları ve gizlilik politikası (mağaza için zorunlu)

@@ -1,13 +1,16 @@
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
+import { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
-import { Badge, Stars } from '@/components/ui';
+import { Badge, Chip, Stars } from '@/components/ui';
 import { Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 import { useI18n } from '@/i18n';
 import { formatIDR } from '@/lib/format';
+import { REPORT_REASONS, reportReview, type ReportReason, type ReportResult } from '@/lib/moderation';
+import { useAuth } from '@/store/auth';
 import { useReviews } from '@/store/reviews';
 import type { Review } from '@/types';
 
@@ -16,6 +19,26 @@ export function ReviewCard({ review }: { review: Review }) {
   const { t } = useI18n();
   const { myUserId } = useReviews();
   const mine = !!myUserId && review.userId === myUserId;
+  const auth = useAuth();
+  const [reporting, setReporting] = useState(false);
+  const [reportState, setReportState] = useState<ReportResult | 'sending' | null>(null);
+  // Reporting only makes sense for real reviews on the server, and not for your own.
+  const canReport = auth.enabled && !mine && !review.isDemo;
+
+  const startReport = () => {
+    if (!auth.userId) {
+      router.push('/sign-in');
+      return;
+    }
+    setReporting(true);
+  };
+
+  const sendReport = async (reason: ReportReason) => {
+    if (!auth.userId) return;
+    setReportState('sending');
+    setReportState(await reportReview(review.id, auth.userId, reason));
+    setReporting(false);
+  };
   const worthColor = review.worthIt === 'yes' ? 'positive' : review.worthIt === 'no' ? 'negative' : 'textSecondary';
 
   return (
@@ -28,8 +51,14 @@ export function ReviewCard({ review }: { review: Review }) {
             {mine && <Badge label={t('yourReview')} color="accent" />}
           </View>
           <ThemedText type="small" themeColor="textSecondary">
-            {review.modelYear}
-            {review.variant ? ` · ${review.variant}` : ''} · {review.city} · {review.monthsOwned} {t('monthsOwned')}
+            {[
+              review.modelYear,
+              review.variant,
+              review.city && review.city !== '—' ? review.city : null,
+              review.monthsOwned ? `${review.monthsOwned} ${t('monthsOwned')}` : null,
+            ]
+              .filter(Boolean)
+              .join(' · ')}
           </ThemedText>
         </View>
         <Stars value={review.overall} />
@@ -68,6 +97,30 @@ export function ReviewCard({ review }: { review: Review }) {
         </ScrollView>
       )}
 
+      {canReport && !reporting && reportState !== 'sent' && reportState !== 'alreadyReported' && (
+        <Pressable onPress={startReport} accessibilityRole="button" style={styles.editLink}>
+          <ThemedText type="small" themeColor="textSecondary">
+            ⚑ {t('report')}
+          </ThemedText>
+        </Pressable>
+      )}
+      {reporting && (
+        <View style={[styles.reportBox, { backgroundColor: theme.backgroundElement }]}>
+          <ThemedText type="small">{t('reportTitle')}</ThemedText>
+          <View style={[styles.row, { flexWrap: 'wrap', gap: Spacing.two }]}>
+            {REPORT_REASONS.map((r) => (
+              <Chip key={r} label={t(`reason_${r}`)} onPress={reportState === 'sending' ? undefined : () => sendReport(r)} />
+            ))}
+            <Chip label={t('cancel')} onPress={() => setReporting(false)} />
+          </View>
+        </View>
+      )}
+      {(reportState === 'sent' || reportState === 'alreadyReported' || reportState === 'failed') && (
+        <ThemedText type="small" style={{ color: reportState === 'failed' ? theme.negative : theme.positive }}>
+          {reportState === 'sent' ? t('reportSent') : reportState === 'alreadyReported' ? t('alreadyReported') : t('saveFailed')}
+        </ThemedText>
+      )}
+
       {mine && (
         <Pressable
           onPress={() => router.push({ pathname: '/review/new', params: { reviewId: review.id } })}
@@ -103,4 +156,5 @@ const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', gap: Spacing.one },
   photo: { width: 140, height: 105, borderRadius: 10, borderWidth: 2 },
   editLink: { alignSelf: 'flex-start', paddingVertical: Spacing.one },
+  reportBox: { borderRadius: 12, padding: Spacing.three, gap: Spacing.two },
 });
