@@ -1,0 +1,66 @@
+{
+ "deals": [
+  {
+   "category": "spark",
+   "seed": "2026-11-09:arabica-zamzam#1",
+   "dealt": [
+    "s1",
+    "s2",
+    "s3"
+   ],
+   "redeal_reason": null,
+   "pick": "s1",
+   "reason": "dunes shaped by one force (wind -> water) carry the brand's one fact: water shapes this coffee",
+   "at": "2026-11-09T04:43",
+   "texts": {
+    "s1": "seed: Curonian Spit · place: a glacier cave · form: a sports broadcast · medium: Super 8 · tone: cosy · colour: olive and rust",
+    "s2": "seed: Dancing devils of Corpus Christi · place: a cemetery of ships · form: a day in 24 shots · medium: Kodachrome · colour: pastel noon · tone: awe",
+    "s3": "seed: samanu · place: a Dutch tulip field · form: a screen recording · medium: thermal camera · colour: candy pop · tone: triumphant"
+   },
+   "seeds": {
+    "s1": {
+     "name": "Curonian Spit",
+     "fact": "dune spit in Lithuania and Russia, Lithuania, Russia",
+     "link": "https://en.wikipedia.org/wiki/Curonian_Spit",
+     "pool": "place"
+    },
+    "s2": {
+     "name": "Dancing devils of Corpus Christi",
+     "fact": "Venezuelan religious festivals",
+     "link": "https://en.wikipedia.org/wiki/Dancing_devils_of_Corpus_Christi",
+     "pool": "custom"
+    },
+    "s3": {
+     "name": "samanu",
+     "fact": "wheat dish from Iran and Central Asia",
+     "link": "https://en.wikipedia.org/wiki/Samanu",
+     "pool": "custom"
+    }
+   }
+  },
+  {
+   "category": "look",
+   "seed": "2026-11-09:arabica-zamzam#1",
+   "dealt": [
+    "l1",
+    "l2",
+    "l3",
+    "l4",
+    "l5",
+    "l6"
+   ],
+   "redeal_reason": null,
+   "pick": null,
+   "reason": null,
+   "at": "2026-11-09T04:47",
+   "texts": {
+    "l1": "Wes Anderson: pastel symmetry, centred frames, flat staging, whip pans",
+    "l2": "Macro product photography: perfect light on small things",
+    "l3": "Syd Mead: futurist industrial design",
+    "l4": "Klimt: gold leaf patterns",
+    "l5": "Andreas Gursky: vast patterned panoramas",
+    "l6": "Aardman: clay, thumbprints, warm British wit"
+   }
+  }
+ ]
+}

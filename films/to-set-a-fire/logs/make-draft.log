@@ -1,0 +1,110 @@
+# make.py draft · 2026-11-09 15:50:39
+
+$ node /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/tools/capture.mjs --url film.html --probe --params w=1080&h=1920
+[capture] renderer: canvas2d
+[capture] page: 1080x1920, 432 frames @ 24 fps
+[capture] meta: {"title":"To Set a Fire","bounds":[0,18],"vo":0,"palette":{"bg":"#1C1612","ink":"#EFEDE8","accent":"#FF6A2A","dim":"#2A0F05","flame":"#FFD9A0","deep":"#B8320F"},"lookPalette":{"bg":"#1C1612","ink":"#EFEDE8","accent":"#FF6A2A","dim":"#2A0F05"},"families":["Bodoni Moda","Schibsted Grotesk"],"sfx":[[0.05,"air",0.9],[0.4,"crackle",9.8],[1.1,"hit",null],[4.4,"foley",null],[5.6,"foley",null],[6.8,"foley",null],[8,"foley",null],[10.35,"air",0.9],[10.8,"hit",null],[10.8,"fire",3.8],[14.9,"tick",null]]}
+
+$ node /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/tools/capture.mjs --url film.html --video /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/renders/draft-picture-v6.mp4 --audio /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/audio/film.wav --workers 2 --format jpeg --quality 0.85 --maxrate 4M --params w=540&h=960&shutter=0&weave=0&tone=0 --status /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/renders/draft.status.json
+[capture] renderer: canvas2d
+[capture] page: 540x960, 432 frames @ 24 fps
+[capture] audio: /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/audio/film.wav (18.000 s, 48000 Hz, 2 ch, 32-bit float, peak -3.9 dBFS, 1.9 s)
+[capture] 199/432 frames (0 skipped) - 24.2 fps
+[capture] 384/432 frames (0 skipped) - 29.0 fps
+[capture] done: 432 rendered, 0 skipped, 15.7 s total, 27.55 fps, 2 worker(s)
+[capture] video: /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/renders/draft-picture-v6.mp4 (432 frames @ 24 fps, no audio yet)
+
+$ /usr/local/bin/python3 /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/tools/master_audio.py /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/audio/film.wav /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/renders/draft-v6.mp4 --video /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/renders/draft-picture-v6.mp4 --limit
+pass 1: I=-18.82 LUFS  TP=-3.85 dBTP  LRA=4.40 LU  thresh=-28.86
+limit: +4.82 dB then a lookahead limiter at -3.5 dBFS -> I=-14.19 LUFS  TP=-3.50 dBTP  LRA=3.80 LU
+pass 2: normalization_type=linear  output I=-13.75  TP=-3.31  LRA=2.80
+re-measured from /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/renders/draft-v6.mp4: I=-13.8 LUFS  LRA=3.5 LU  true peak=-3.3 dBFS
+OK
+
+$ /usr/local/bin/python3 /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/tools/qc.py all /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/renders/draft-v6.mp4
+== info: /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/renders/draft-v6.mp4
+duration=18.000000
+size=3791252
+bit_rate=1685000
+codec_name=h264
+profile=High
+width=540
+height=960
+pix_fmt=yuv420p
+color_range=tv
+color_space=bt709
+color_transfer=bt709
+color_primaries=bt709
+r_frame_rate=24/1
+frames=432
+audio_codec_name=aac
+audio_sample_rate=48000
+audio_channels=2
+audio_bit_rate=323481
+== hook (first 2 s must move from frame 1; min mean 0.5, motion >= 0.02 in every 2 frames):
+  steps=47 mean=0.79 min=0.240 first_step=1.472
+  PASS
+  (also look at the strip: qc.py strip <video> 0 2 12, so grain or flicker is not mistaken for motion)
+== sheet: /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/qc-draft-v6/sheet.jpg (index: /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/qc-draft-v6/sheet-index.txt, one tile every 2s)
+== black intervals (>= 0.1 s, 98% of pixels dark):
+none
+== frozen intervals (>= 1.5 s):
+none
+(grain hides freezes from this detector; also check strips and duplicates)
+== exact duplicate consecutive frames:
+frames: 432, duplicates: 0
+== one-frame pops (a frame unlike both neighbours, 48 px grey): 0
+== repeated compositions (the same picture again, 6 s or more later; 32 px grey): 2 repeats, 5 s of 18
+     00:07.00-00:08.00 repeats 00:01.00-00:02.00
+     00:14.00-00:18.00 repeats 00:00.00-00:01.00
+  each repeat is a new picture (another angle, scale, place or moment) unless the card names it a callback
+== brightness (4 samples/s):
+samples: 72, mean L*: 4.9, min: 3.0, max: 12.0, very dark (L*<12): 100.0%
+== hard cuts (scene score > 0.3):
+cuts: 0
+== action per scene (camera move removed; flag when the median residual < 1.0 or < 30% of the total; 4 samples/s):
+     #1 00:00.00-00:02.00  residual  3.74  total  3.74  ok
+     #2 00:02.00-00:04.00  residual  1.17  total  1.17  ok
+     #3 00:04.00-00:06.00  residual  0.94  total  0.94  CHECK: nothing moves
+     #4 00:06.00-00:08.00  residual  1.52  total  1.52  ok
+     #5 00:08.00-00:10.00  residual  1.04  total  1.04  ok
+     #6 00:10.00-00:12.00  residual  7.94  total  8.42  ok
+     #7 00:12.00-00:14.00  residual  9.10  total  9.47  ok
+     #8 00:14.00-00:16.00  residual  1.86  total  3.04  ok
+     #9 00:16.00-00:18.00  residual  0.35  total  0.35  CHECK: nothing moves
+  2 scene(s) flagged; look at their strips (qc.py strip) and give each an action
+== loudness (EBU R128, true peak):
+      I:         -13.8 LUFS
+      Threshold: -23.8 LUFS
+      LRA:         3.5 LU
+      Threshold: -34.0 LUFS
+      Peak:       -3.3 dBFS
+== silences (< -50 dB, >= 0.5 s):
+  none
+targets for web: I = -14 LUFS (+/-1), true peak <= -1 dBTP; every silence must be scripted
+== sound per scene (median -14.2 LUFS, harsh-band median -18.0 dB; flag > 3.0 LU or > 3.0 dB above):
+     #1 00:00.00-00:02.00   -10.3 LUFS  harsh -23.5 dB  LOUDER by 3.9 LU
+     #2 00:02.00-00:04.00   -16.1 LUFS  harsh -18.9 dB  ok
+     #3 00:04.00-00:06.00   -14.1 LUFS  harsh -19.1 dB  ok
+     #4 00:06.00-00:08.00   -13.6 LUFS  harsh -19.4 dB  ok
+     #5 00:08.00-00:10.00   -14.2 LUFS  harsh -17.0 dB  ok
+     #6 00:10.00-00:12.00   -15.4 LUFS  harsh -15.1 dB  ok
+     #7 00:12.00-00:14.00   -12.7 LUFS  harsh -18.0 dB  ok
+     #8 00:14.00-00:16.00   -15.6 LUFS  harsh -15.6 dB  ok
+     #9 00:16.00-00:18.00   -15.3 LUFS  harsh -17.4 dB  ok
+  1 scene(s) flagged; listen to those seconds, then fix the level or soften the lead
+== spectrogram: /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/qc-draft-v6/spectrogram.png (look for persistent horizontal lines = pitched layers)
+== report: /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/qc-draft-v6/report.txt
+
+$ ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=s=x:p=0 /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/qc-draft-v6/sheet.jpg
+1948x1148
+
+$ ffmpeg -hide_banner -nostdin -loglevel error -y -i /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/qc-draft-v6/sheet.jpg -vf scale=1024:-2 -q:v 4 -update 1 /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/qc-draft-v6/sheet-small.jpg
+
+$ /usr/local/bin/python3 /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/tools/qc.py thumb /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/renders/draft-v6.mp4 768 12.6
+== thumb: /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/qc-draft-v6/thumb-draft-v6-12.6s-768.jpg (540x960)
+
+$ node /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/tools/capture.mjs --url film.html --text-check 0.5 --params w=540&h=960&shutter=0&weave=0&tone=0&textcheck=1
+[capture] renderer: canvas2d
+[capture] page: 540x960, 432 frames @ 24 fps
+[capture] text check: no overlapping lines, no line lost in its ground

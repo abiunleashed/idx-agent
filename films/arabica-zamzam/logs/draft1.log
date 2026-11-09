@@ -1,0 +1,7 @@
+draft v2: renders/draft-v2.mp4 (not delivered) · 20 s · 540x960 · -13.8 LUFS, peak -3.0 dBFS · 0.8 min
+hook PASS · action 0 flags · sound 1 flag: #1 00:00.00-00:16.20 -13.5 LUFS harsh -16.9 dB HARSH: 2-5 kHz +6.3 dB over the median · black 16.4–16.7 s, GUARD OFF: the cinecode guard has not run in this Claude Code session, so the kit's checks will not hold. Its hooks need Node.js and Python (on Windows: Python from python.org), then a new session. Tell the user in one line before going on., SOUND ALL CODE: no ready or recorded effect: every sound is synthesised in code (sounds.py search / get for the designed ones, asset_search.py search --type sound for the long ones; code only where a sound follows the motion, lands a whoosh on a cut or sits in the score's key, sound.md §5)
+look: review/qc-draft-v2/sheet-small.jpg (a frame every 2 s) · poster: review/qc-draft-v2/thumb-draft-v2-14s-768.jpg
+files: renders/draft-v2.mp4 · report: review/qc-draft-v2/report.txt · log: logs/make-draft.log
+NOT DELIVERED (sound all code): no draft has been delivered yet; this one is renders/draft-v2.mp4; one fix pass on the flagged windows (an action in each still one, a new picture for each repeat, scene lengths that vary), then make.py draft again: that one is shown, with what remains
+taste: colours AI designs overuse: warm cream; fonts AI designs overuse: Cinzel (a reason on the director card, or change it)
+qc: text: cap height 25 px < 28 px for phone viewing at 1080x1920

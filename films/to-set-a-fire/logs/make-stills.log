@@ -1,0 +1,14 @@
+# make.py stills · 2026-11-09 15:46:13
+
+$ node /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/tools/capture.mjs --url film.html --probe --params w=1080&h=1920
+[capture] renderer: canvas2d
+[capture] page: 1080x1920, 432 frames @ 24 fps
+[capture] meta: {"title":"To Set a Fire","bounds":[0,18],"vo":0,"palette":{"bg":"#1C1612","ink":"#EFEDE8","accent":"#FF6A2A","dim":"#2A0F05","flame":"#FFD9A0","deep":"#B8320F"},"lookPalette":{"bg":"#1C1612","ink":"#EFEDE8","accent":"#FF6A2A","dim":"#2A0F05"},"families":["Bodoni Moda","Schibsted Grotesk"],"sfx":[[0.05,"air",0.9],[0.4,"crackle",9.8],[1.1,"hit",null],[4.4,"foley",null],[5.6,"foley",null],[6.8,"foley",null],[8,"foley",null],[10.35,"air",0.9],[10.8,"hit",null],[10.8,"fire",3.8],[14.9,"tick",null]]}
+
+$ node /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/tools/capture.mjs --url film.html --out /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/stills-4 --frames 370,403 --format jpeg --quality 0.9 --params w=540&h=960
+[capture] renderer: canvas2d
+[capture] page: 540x960, 432 frames @ 24 fps
+[capture] done: 2 rendered, 0 skipped, 1.2 s total, 1.67 fps, 1 worker(s)
+[capture] frames: /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/stills-4/%06d.jpg
+
+$ ffmpeg -hide_banner -nostdin -loglevel error -y -f concat -safe 0 -i /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/stills-4/frames.txt -vf scale=508:-2,pad=512:ih+4:2:2:black,tile=2x1 -frames:v 1 -update 1 -q:v 4 /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/stills-4.jpg

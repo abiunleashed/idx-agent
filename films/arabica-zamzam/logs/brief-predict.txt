@@ -1,0 +1,21 @@
+start it with: model sonnet, effort low (Claude Code: the Agent call's model and effort; inherit = the chat's own model)
+<!-- cinecode brief: predict -->
+# Task (the prediction test: the films the user's first message makes anyone expect, five lines, from that message alone)
+
+Zamzam suyuyla fermantasyon yaptigimiz arabica kahvesi icin 20 saniyelik bir film. Arabica zamzam coffee
+
+# Files
+
+PROJECT: /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/arabica-zamzam (the film's folder; every path below is inside it)
+WRITES: research/predict.md
+READS: nothing: the user's first message is quoted in the task, and it is all you get
+DO NOT TOUCH: STATE.md, shots.json, audio/mix.json, LICENSES.csv (the main chat owns them) and every file not under WRITES
+DONE WHEN: research/predict.md holds five lines, one expected film each: its subject, key images and form
+
+# The kit's rules for this task (quoted; they are not optional)
+
+**The prediction test (independent).** The maker cannot judge its own surprise. At the very start, where the tool has helpers, a fresh helper (`python3 tools/brief.py predict`) gets only the user's first message, quoted, and nothing else, and writes `research/predict.md`: the five films it would expect from that message, one line each (subject, key images, form). Write the 10 angles while it runs. A kept angle that shares its subject, key image or form with a predicted line is replaced by the next one on the list; each interpretation offered then says in a few words what it does that the predictions did not. One reply, about a minute, never waited on by the user.
+
+# Report
+
+At most 25 tool calls. Details go in the file under WRITES; reply in 10 lines or fewer: what was done, the files written, what was measured (the command and its result, not a claim), what is still open, and anything you saw that is outside your task.

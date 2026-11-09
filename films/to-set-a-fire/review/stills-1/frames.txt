@@ -1,0 +1,16 @@
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/stills-1/000012.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/stills-1/000038.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/stills-1/000086.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/stills-1/000211.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/stills-1/000269.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/stills-1/000298.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/stills-1/000343.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/stills-1/000396.jpg'
+duration 1

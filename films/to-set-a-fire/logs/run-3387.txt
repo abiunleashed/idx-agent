@@ -1,0 +1,6 @@
+FAILED: capture.mjs (exit 1)
+    at async grab (file:///tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/tools/capture.mjs:353:19)
+    at async file:///tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/tools/capture.mjs:243:19
+    at async Promise.all (index 0)
+    at async file:///tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/tools/capture.mjs:237:3
+log: logs/make-draft.log

@@ -1,0 +1,58 @@
+{
+ "query": "Gustav Klimt painting gold",
+ "type": "image",
+ "results": [
+  {
+   "source": "wikimedia",
+   "id": "38827275",
+   "title": "The Kiss - Gustav Klimt - Google Cultural Institute.jpg",
+   "creator": "Gustav Klimt",
+   "licence": "pd",
+   "page": "https://commons.wikimedia.org/wiki/File:The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg",
+   "file": "https://upload.wikimedia.org/wikipedia/commons/4/40/The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/40/The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg/500px-The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "type": "image",
+   "licence_name": "Public domain",
+   "n": 1
+  },
+  {
+   "source": "wikimedia",
+   "id": "22007080",
+   "title": "Gustav Klimt - Hope, II - Google Art Project.jpg",
+   "creator": "Gustav Klimt",
+   "licence": "pd",
+   "page": "https://commons.wikimedia.org/wiki/File:Gustav_Klimt_-_Hope,_II_-_Google_Art_Project.jpg",
+   "file": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Gustav_Klimt_-_Hope%2C_II_-_Google_Art_Project.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Gustav_Klimt_-_Hope%2C_II_-_Google_Art_Project.jpg/500px-Gustav_Klimt_-_Hope%2C_II_-_Google_Art_Project.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "type": "image",
+   "licence_name": "Public domain",
+   "n": 2
+  },
+  {
+   "source": "wikimedia",
+   "id": "72365360",
+   "title": "Gustav Klimt, 1907, Adele Bloch-Bauer I, Neue Galerie New York.jpg",
+   "creator": "Gustav Klimt",
+   "licence": "pd",
+   "page": "https://commons.wikimedia.org/wiki/File:Gustav_Klimt,_1907,_Adele_Bloch-Bauer_I,_Neue_Galerie_New_York.jpg",
+   "file": "https://upload.wikimedia.org/wikipedia/commons/1/18/Gustav_Klimt%2C_1907%2C_Adele_Bloch-Bauer_I%2C_Neue_Galerie_New_York.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Gustav_Klimt%2C_1907%2C_Adele_Bloch-Bauer_I%2C_Neue_Galerie_New_York.jpg/500px-Gustav_Klimt%2C_1907%2C_Adele_Bloch-Bauer_I%2C_Neue_Galerie_New_York.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "type": "image",
+   "licence_name": "Public domain",
+   "n": 3
+  },
+  {
+   "source": "wikimedia",
+   "id": "49560884",
+   "title": "Gustav Klimt - Portr\u00e4t der Adele Bloch-Bauer I (1907).jpg",
+   "creator": "Gustav Klimt",
+   "licence": "pd",
+   "page": "https://commons.wikimedia.org/wiki/File:Gustav_Klimt_-_Portr%C3%A4t_der_Adele_Bloch-Bauer_I_(1907).jpg",
+   "file": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Gustav_Klimt_-_Portr%C3%A4t_der_Adele_Bloch-Bauer_I_%281907%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Gustav_Klimt_-_Portr%C3%A4t_der_Adele_Bloch-Bauer_I_%281907%29.jpg/500px-Gustav_Klimt_-_Portr%C3%A4t_der_Adele_Bloch-Bauer_I_%281907%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "type": "image",
+   "licence_name": "Public domain",
+   "n": 4
+  }
+ ]
+}

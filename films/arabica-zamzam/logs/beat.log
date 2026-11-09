@@ -1,0 +1,4 @@
+bpm 120.87 (half-time 60.44) · beat 0.4964 s · bar 1.986 s · pulse 2.45x
+first beat 0.941 s · first downbeat 1.934 s (low-end accent 1.17x the average; under 1.15x the downbeat is a guess)
+bars: 1.93 3.92 5.91 7.89 9.88 11.86 13.85 15.83 …
+clip on a bar line: ffmpeg -ss 1.934 -t <length> -i "audio/music-lucky-acoustic.mp3" -af "afade=t=out:st=<length-2>:d=2" -ac 2 -ar 48000 audio/music.wav   (then BPM = 120.87, BEAT0 = 0)

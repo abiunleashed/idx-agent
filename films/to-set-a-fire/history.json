@@ -1,0 +1,96 @@
+{
+ "deals": [
+  {
+   "category": "type",
+   "seed": "2026-11-09:keep-gathering#1",
+   "dealt": [
+    "didone-gala",
+    "folk-horror",
+    "cormorant-elegy"
+   ],
+   "weights": {
+    "didone-gala": 2.5,
+    "folk-horror": 2.5,
+    "cormorant-elegy": 2.5
+   },
+   "look_families": [],
+   "filters": {
+    "purpose": "cinematic",
+    "look": null,
+    "mood": "cinematic quiet strength, fire, patience, motivational",
+    "latin_only": false
+   },
+   "redeal_reason": null,
+   "pick": "didone-gala",
+   "reason": "hairline didone reads as quiet strength and its thin strokes burn beautifully; grotesque for the handle",
+   "at": "2026-11-09T15:31"
+  }
+ ],
+ "taste": [
+  {
+   "at": "2026-11-09T15:31:10",
+   "project": "keep-gathering",
+   "kind": "pairing",
+   "id": "didone-gala",
+   "verdict": "like",
+   "families": [
+    "Bodoni Moda",
+    "Schibsted Grotesk"
+   ],
+   "tags": [
+    "didone",
+    "elegant",
+    "grotesque",
+    "high-contrast",
+    "luxurious",
+    "news",
+    "sans",
+    "serif"
+   ],
+   "reason": "hairline didone reads as quiet strength and its thin strokes burn beautifully; grotesque for the handle"
+  },
+  {
+   "at": "2026-11-09T15:31:10",
+   "project": "keep-gathering",
+   "kind": "pairing",
+   "id": "folk-horror",
+   "verdict": "pass",
+   "families": [
+    "Grenze Gotisch",
+    "Cormorant"
+   ],
+   "tags": [
+    "dark",
+    "display",
+    "dramatic",
+    "elegant",
+    "folk",
+    "garalde",
+    "occult",
+    "serif"
+   ],
+   "reason": "hairline didone reads as quiet strength and its thin strokes burn beautifully; grotesque for the handle"
+  },
+  {
+   "at": "2026-11-09T15:31:10",
+   "project": "keep-gathering",
+   "kind": "pairing",
+   "id": "cormorant-elegy",
+   "verdict": "pass",
+   "families": [
+    "Cormorant",
+    "Mona Sans"
+   ],
+   "tags": [
+    "elegant",
+    "garalde",
+    "grotesque",
+    "romantic",
+    "sans",
+    "serif",
+    "variable-width"
+   ],
+   "reason": "hairline didone reads as quiet strength and its thin strokes burn beautifully; grotesque for the handle"
+  }
+ ]
+}

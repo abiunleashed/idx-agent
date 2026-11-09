@@ -1,0 +1,16 @@
+# make.py stills · 2026-11-09 05:04:54
+
+$ node /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/arabica-zamzam/tools/capture.mjs --url film.html --probe --params w=1080&h=1920
+[capture] renderer: canvas2d
+[capture] qc: text: cap height 25 px < 28 px for phone viewing at 1080x1920
+[capture] page: 1080x1920, 480 frames @ 24 fps
+[capture] meta: {"title":"Arabica Zamzam Coffee","bounds":[0,16.2,20],"vo":0,"palette":{"bg":"#0b0604","ink":"#F4EAD8","accent":"#E2B85A","dim":"#2A1608","sky":"#1F3A5F","haze":"#E6B8A8","crest":"#C8893A","coffee":"#2A1608"},"lookPalette":{"bg":"#0b0604","ink":"#F4EAD8","accent":"#E2B85A","dim":"#2A1608"},"families":["Marcellus","Cinzel"],"sfx":[[1.99,"foley",null],[15.88,"foley",null]]}
+
+$ node /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/arabica-zamzam/tools/capture.mjs --url film.html --out /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/arabica-zamzam/review/stills-4 --frames 10,55,125,206,302,358,383,461 --format jpeg --quality 0.9 --params w=540&h=960
+[capture] renderer: canvas2d
+[capture] qc: text: cap height 13 px < 14 px for phone viewing at 540x960
+[capture] page: 540x960, 480 frames @ 24 fps
+[capture] done: 8 rendered, 0 skipped, 1.8 s total, 4.38 fps, 1 worker(s)
+[capture] frames: /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/arabica-zamzam/review/stills-4/%06d.jpg
+
+$ ffmpeg -hide_banner -nostdin -loglevel error -y -f concat -safe 0 -i /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/arabica-zamzam/review/stills-4/frames.txt -vf scale=200:-2,pad=204:ih+4:2:2:black,tile=5x2 -frames:v 1 -update 1 -q:v 4 /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/arabica-zamzam/review/stills-4.jpg

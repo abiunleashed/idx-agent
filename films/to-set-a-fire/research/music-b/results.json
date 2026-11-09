@@ -1,0 +1,19 @@
+{
+ "query": "epic motivational orchestral",
+ "type": "music",
+ "results": [
+  {
+   "source": "archive",
+   "id": "jamendo-370957",
+   "title": "MyWay - Free Epic Orchestral Trailer",
+   "creator": "MyWay",
+   "licence": "cc-by",
+   "page": "https://archive.org/details/jamendo-370957",
+   "file": "https://archive.org/download/jamendo-370957/01-1509937-MyWay-Free%20Epic%20Orchestral%20Trailer.mp3",
+   "thumb": null,
+   "type": "music",
+   "licence_url": "http://creativecommons.org/licenses/by/3.0/",
+   "n": 1
+  }
+ ]
+}

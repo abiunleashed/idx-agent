@@ -1,0 +1,4 @@
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/stills-4/000370.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/keep-gathering/review/stills-4/000403.jpg'
+duration 1

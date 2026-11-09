@@ -1,0 +1,16 @@
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/arabica-zamzam/review/stills-4/000010.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/arabica-zamzam/review/stills-4/000055.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/arabica-zamzam/review/stills-4/000125.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/arabica-zamzam/review/stills-4/000206.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/arabica-zamzam/review/stills-4/000302.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/arabica-zamzam/review/stills-4/000358.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/arabica-zamzam/review/stills-4/000383.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/arabica-zamzam/review/stills-4/000461.jpg'
+duration 1

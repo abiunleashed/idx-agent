@@ -1,0 +1,7 @@
+# Candidates (Arabica Zamzam Coffee, 20 s ad)
+
+1. **Bir damla, bir çöl** (spark s1, Curonian Spit: dunes shaped only by wind; Super 8; olive and rust): one continuous shot follows a single drop of water across a desert whose dunes are made of ground coffee; where it passes, the grounds darken and a ridge reshapes like wind on a dune, until the ridge becomes the rim of a cup and the drop lands in it. End card. Form: one continuous travelling shot, 2D layered dunes.
+2. **Bir gece** (spark s3, samanu: cooked through one night, sweetness made by time not sugar; thermal camera): one bean seen through a thermal palette for one night, a clock 22:00 to 06:00; the bean warms from blue to amber as fermentation works, at dawn the colour becomes the real colour of a poured cup. Form: one locked frame, time as the only motion.
+3. **Soğuk dünya, sıcak fincan** (spark s3, thermal camera, candy pop): a morning street in thermal colours, everything cold blue, only one cup glows; the glow spreads to the hand, the window, the city. Form: thermal-vision city vignette.
+4. **24 kare** (spark s2, a day in 24 shots, pastel noon): 24 cut shots, under a second each, of one bean's journey through one day of fermentation, each shot a different object and size, rhythm on the beat. Form: rapid montage.
+5. **Desen** (spark s2, festival masks, pattern): beans arranged as a geometric tile pattern; a ripple of water passes through and reorders them into the brand mark. Form: top-down pattern animation.

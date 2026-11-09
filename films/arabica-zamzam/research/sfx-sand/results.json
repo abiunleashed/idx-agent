@@ -1,0 +1,90 @@
+{
+ "query": "sand",
+ "type": "sound",
+ "results": [
+  {
+   "source": "wikimedia",
+   "id": "49941402",
+   "title": "De-Sand.ogg",
+   "creator": "Jeuwre",
+   "licence": "cc-by-sa",
+   "page": "https://commons.wikimedia.org/wiki/File:De-Sand.ogg",
+   "file": "https://upload.wikimedia.org/wikipedia/commons/b/b0/De-Sand.ogg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "thumb": null,
+   "type": "sound",
+   "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "licence_name": "CC BY-SA 4.0",
+   "n": 1
+  },
+  {
+   "source": "wikimedia",
+   "id": "2651457",
+   "title": "En-us-sands.ogg",
+   "creator": "Neskaya",
+   "licence": "cc-by-sa",
+   "page": "https://commons.wikimedia.org/wiki/File:En-us-sands.ogg",
+   "file": "https://upload.wikimedia.org/wikipedia/commons/f/fb/En-us-sands.ogg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "thumb": null,
+   "type": "sound",
+   "licence_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "licence_name": "CC BY-SA 3.0",
+   "n": 2
+  },
+  {
+   "source": "wikimedia",
+   "id": "91927462",
+   "title": "LL-Q150 (fra)-Eihel-sable.wav",
+   "creator": "Speaker: Eihel Recorder: Eihel",
+   "licence": "cc0",
+   "page": "https://commons.wikimedia.org/wiki/File:LL-Q150_(fra)-Eihel-sable.wav",
+   "file": "https://upload.wikimedia.org/wikipedia/commons/6/61/LL-Q150_%28fra%29-Eihel-sable.wav?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "thumb": null,
+   "type": "sound",
+   "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "licence_name": "CC0",
+   "n": 3
+  },
+  {
+   "source": "wikimedia",
+   "id": "134036879",
+   "title": "Legendesrustiques 16 sand 128kb.mp3",
+   "creator": "George Sand",
+   "licence": "pd",
+   "page": "https://commons.wikimedia.org/wiki/File:Legendesrustiques_16_sand_128kb.mp3",
+   "file": "https://upload.wikimedia.org/wikipedia/commons/0/08/Legendesrustiques_16_sand_128kb.mp3?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "thumb": null,
+   "type": "sound",
+   "licence_url": "https://web.archive.org/web/20230926203737/https://creativecommons.org/licenses/publicdomain/",
+   "licence_name": "Public Domain",
+   "n": 4
+  },
+  {
+   "source": "wikimedia",
+   "id": "134036896",
+   "title": "Legendesrustiques 18 sand 128kb.mp3",
+   "creator": "George Sand",
+   "licence": "pd",
+   "page": "https://commons.wikimedia.org/wiki/File:Legendesrustiques_18_sand_128kb.mp3",
+   "file": "https://upload.wikimedia.org/wikipedia/commons/4/49/Legendesrustiques_18_sand_128kb.mp3?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "thumb": null,
+   "type": "sound",
+   "licence_url": "https://web.archive.org/web/20230926203737/https://creativecommons.org/licenses/publicdomain/",
+   "licence_name": "Public Domain",
+   "n": 5
+  },
+  {
+   "source": "wikimedia",
+   "id": "134036689",
+   "title": "Legendesrustiques 03 sand 128kb.mp3",
+   "creator": "George Sand",
+   "licence": "pd",
+   "page": "https://commons.wikimedia.org/wiki/File:Legendesrustiques_03_sand_128kb.mp3",
+   "file": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Legendesrustiques_03_sand_128kb.mp3?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+   "thumb": null,
+   "type": "sound",
+   "licence_url": "https://web.archive.org/web/20230926203737/https://creativecommons.org/licenses/publicdomain/",
+   "licence_name": "Public Domain",
+   "n": 6
+  }
+ ]
+}
