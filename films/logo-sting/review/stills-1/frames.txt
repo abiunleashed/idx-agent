@@ -1,0 +1,14 @@
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/logo-sting/review/stills-1/000012.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/logo-sting/review/stills-1/000025.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/logo-sting/review/stills-1/000034.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/logo-sting/review/stills-1/000053.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/logo-sting/review/stills-1/000070.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/logo-sting/review/stills-1/000094.jpg'
+duration 1
+file '/tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/logo-sting/review/stills-1/000132.jpg'
+duration 1

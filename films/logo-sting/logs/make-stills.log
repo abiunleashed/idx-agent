@@ -1,0 +1,14 @@
+# make.py stills · 2026-11-09 16:23:50
+
+$ node /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/logo-sting/tools/capture.mjs --url film.html --probe --params w=1080&h=1920
+[capture] renderer: canvas2d
+[capture] page: 1080x1920, 156 frames @ 24 fps
+[capture] meta: {"title":"Arabica Zamzam Coffee","bounds":[0,6.5],"vo":0,"palette":{"bg":"#0B0806","ink":"#F4EAD8","accent":"#E2B85A","dim":"#5A3214","highlight":"#FBE7B0"},"lookPalette":{"bg":"#0B0806","ink":"#F4EAD8","accent":"#E2B85A","dim":"#5A3214"},"families":[],"sfx":[[0.7,"air",0.9],[1.6,"drip",null],[1.61,"foley",null],[4.4,"shimmer",1.4]]}
+
+$ node /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/logo-sting/tools/capture.mjs --url film.html --out /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/logo-sting/review/stills-2 --frames 7,118 --format jpeg --quality 0.9 --params w=540&h=960
+[capture] renderer: canvas2d
+[capture] page: 540x960, 156 frames @ 24 fps
+[capture] done: 2 rendered, 0 skipped, 0.9 s total, 2.12 fps, 1 worker(s)
+[capture] frames: /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/logo-sting/review/stills-2/%06d.jpg
+
+$ ffmpeg -hide_banner -nostdin -loglevel error -y -f concat -safe 0 -i /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/logo-sting/review/stills-2/frames.txt -vf scale=508:-2,pad=512:ih+4:2:2:black,tile=2x1 -frames:v 1 -update 1 -q:v 4 /tmp/claude-0/-home-user-idx-agent/ef9fee5a-e72a-5bff-bb88-06d0f7047d1a/scratchpad/Filmler/logo-sting/review/stills-2.jpg

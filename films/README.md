@@ -5,6 +5,7 @@ Short films made with code (the cinecode kit, quick mode). Each folder holds one
 | Folder | Film | Where it stands |
 |---|---|---|
 | `arabica-zamzam/` | Arabica Zamzam Coffee, 20 s ad, 9:16 | Draft v3 rejected: the illustrated look read as a children's film. Kept as a reference; the brand needs real footage. |
+| `logo-sting/` | Arabica Zamzam Coffee logo animation, 6.5 s | Delivered in 9:16, 1:1 and 16:9. |
 | `to-set-a-fire/` | To Set a Fire, 18 s YouTube Short, 9:16 | Draft v6. Visuals done (ember, stacked words, fire, sparks into the last line). On hold: the words need rewriting so the first lines and the last line say one thing. |
 
 ## Rendering again

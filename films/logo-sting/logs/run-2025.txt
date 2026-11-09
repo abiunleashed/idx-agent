@@ -1,0 +1,1 @@
+FAILED: draft v1 (Arabica Zamzam Coffee-draft.mp4) is ready and the user has not seen it yet: show it now (its path, the poster, one question) and wait; polish waits for their notes, saved in notes/. --force only when the user asked for another draft without notes

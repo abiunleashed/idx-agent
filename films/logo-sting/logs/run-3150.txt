@@ -1,0 +1,1 @@
+FAILED: the independent viewer's review/critique-v2.md says FIX: fix what it names, draft again and let the viewer look at the new draft (make.py final --force only when the user keeps it)
